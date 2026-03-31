@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DASH Player</title>
+  <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+  <style>
+    body { background: #111; display: flex; flex-direction: column;
+           align-items: center; padding: 40px; font-family: sans-serif; color: #eee; }
+    video { width: 80%; max-width: 960px; background: #000; }
+    .links { margin-top: 20px; display: flex; gap: 20px; }
+    a { color: #7fc8f8; font-size: 1.1em; }
+  </style>
+</head>
+<body>
+  <h2>DASH Video Streaming</h2>
+  <video id="player" controls autoplay></video>
+  <div class="links">
+    <a href="#" onclick="load('video1')">▶ Video 1</a>
+    <a href="#" onclick="load('video2')">▶ Video 2</a>
+  </div>
+  <script>
+    var player = dashjs.MediaPlayer().create();
+    player.initialize(document.getElementById('player'), null, true);
+
+    function load(video) {
+      var url = window.location.origin + '/dash/' + video + '/manifest.mpd';
+      player.attachSource(url);
+    }
+
+    // Load video1 by default
+    load('video1');
+  </script>
+</body>
+</html>
+
